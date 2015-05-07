@@ -9,6 +9,27 @@ define('clientSecret', '60bc0c4f4b3a4c3a97583145f696ede2'); //insert client secr
 define('redirectURI', 'https://localhost/appacademyapi/index.php'); //insert URI);
 define('ImageDirectory', 'pics/');
 
+
+//Function that is going to connect to Instagram
+function connectToInstagram($url){
+	//connecting to insagram function
+	$ch = curl_init();
+	//ch isthe curl init
+
+	curl_setopt_array($ch, array((
+		CURLOPT_URL => $url,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_SSL_VERIFYHOST => 2,
+	));
+	$result = curl_exec($ch);
+	curl_close($ch);
+	//closing the curl
+	return $result;
+	//return the result
+}
+
+
 if (isset($_GET['code'])){
 	$code = ($_GET['code']);
 	//variable code is calling the code variable
