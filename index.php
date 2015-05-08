@@ -4,9 +4,9 @@ ini_set('default_socket_timeout', 300);//timeout
 session_start();//starting session
 
 //Make Constants using define.
-define('clientID', '286f5d5cab964acea2333b38249165d2'); //insert client id);
-define('clientSecret', '60bc0c4f4b3a4c3a97583145f696ede2'); //insert client secret);
-define('redirectURI', 'https://localhost/appacademyapi/index.php'); //insert URI);
+define('clientID', '7f587811996949baa090eb8cba3935e5'); //insert client id);
+define('clientSecret', 'ac0350e544a64362a44032eaea7fdfa0'); //insert client secret);
+define('redirectURI', 'https://localhost/appacademyapi1/index.php'); //insert URI);
 define('ImageDirectory', 'pics/');
 
 
@@ -34,7 +34,7 @@ function getUserID($userName){
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 
-	echo $results['data']['0']['id'];
+	return $results['data']['0']['id'];
 }
 //Function to print out images on screen
 function printImages($userID){
@@ -42,7 +42,7 @@ function printImages($userID){
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 	//Parse through the information one by one.
-	foreach($results['data'] as $items){
+	foreach ($results['data'] as $items){
 		$image_url = $items['images']['low_resolution']['url'];//going through all results and gives back url of pictures to save in php server
 		echo '<img src=" '.$image_url.' "/><br/>';
 	}
