@@ -6,31 +6,30 @@ session_start();//starting session
 //Make Constants using define.
 define('clientID', '7f587811996949baa090eb8cba3935e5'); //insert client id);
 define('clientSecret', 'ac0350e544a64362a44032eaea7fdfa0'); //insert client secret);
-define('redirectURI', 'https://localhost/appacademyapi1/index.php'); //insert URI);
+define('redirectURI', 'http://localhost/appacademyapi1/index.php'); //insert URI);
 define('ImageDirectory', 'pics/');
 
 
 //Function that is going to connect to Instagram
 function connectToInstagram($url){
-	//connecting to insagram function
-	$ch = curl_init();
-	//ch isthe curl init
 
-	curl_setopt_array($ch, array((
+	$ch = curl_init();
+
+	curl_setopt_array($ch, array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_SSL_VERIFYHOST => 2,
 	));
+
 	$result = curl_exec($ch);
 	curl_close($ch);
-	//closing the curl
 	return $result;
-	//return the result
+		
 }
 //Function to get userID userName dosen't allow us to get pictures!
 function getUserID($userName){
-	$url = '$http://api.instagram.com/v1/users/search?q='.$userName.'&client_id='.clientID;
+	$url = 'https://api.instagram.com/v1/users/search?q='. $userName .'&client_id='.clientID;
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 
@@ -38,7 +37,7 @@ function getUserID($userName){
 }
 //Function to print out images on screen
 function printImages($userID){
-	$url = '$http://api.instagram.com/v1/users/'.$userID.'/media/recent?client_id='.clientID.'&count=5';
+	$url = 'https://api.instagram.com/v1/users/'. $userID . '/media/recent?client_id='.clientID.'&count=5';
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 	//Parse through the information one by one.
@@ -67,7 +66,7 @@ if (isset($_GET['code'])){
 	//the url is the access token for instagram
 	$access_token_settings = array('client_id' => clientID,
 									//'clientID' if equal to the actual clientID
-									'cliend_secret' => clientSecret,
+									'client_secret' => clientSecret,
 									//'client secret' if equal to the actual client secret
 									'grant_type' => 'authorization_code',
 									//'grant type is equal to the authorization code'
@@ -77,18 +76,22 @@ if (isset($_GET['code'])){
 									//code is equal to the variable code
 									);
 //cURL is what we use in PHP, it's a library to other API's.
-$curl = curl_init($url);//stting a cURL session and we out in $url because that's where we are getting the data from
+$curl = curl_init($url);
 curl_setopt($curl, CURLOPT_POST, true);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $access_token_settings);//setting the POSTFIELDS to the array setup that we created
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); //setting it equal to 1 because we are getting dtrings back.
-curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); //but in live work-production we want to set this to true.
+//aetting the POSTFIELDS to the array setup that we created. 
+curl_setopt($curl, CURLOPT_POSTFIELDS, $access_token_settings);
+//setting it equal to 1 bc we are getting strings back.
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//but in live work-production we want to set this to true.
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
 
 $result = curl_exec($curl);
-curl_close();
+curl_close($curl);
 
 $results = json_decode($result, true);
 
-$userName = $result['user']['username'];
+$userName = $results['user']['username'];
 
 $userID = getUserID($userName);
 
@@ -111,7 +114,7 @@ else{
 	<body>
 	<!-- Creating a login for people to go and give approval for our web app to sccess their Instagram Account
 	After getting approval we are now going to have the information and we can play with it. -->
-	<a href="https:api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code">Login</a>
+	<a href="https://api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code">LOGIN</a>
 	<!--<script type="text/javascript" src="js/main.js"></script>-->
 	</body>
 </html>
