@@ -1,0 +1,23 @@
+
+body{
+	font-family: 'Indie Flower', cursive;
+	/*background-image: url(../images/background.jpg);*/
+	background-color: gray;
+	background-repeat: no-repeat;
+ 	background-attachment: fixed;
+ 	width:100%;
+ 	height:100%;
+ 	margin-top: .5%;
+ margin-bottom: .5%;  
+ /*background-color: rgba(0, 0, 0, 0.88);*/ 
+}
+a {
+  color: black;
+}
+a:hover {
+  COLOR: dodgerblue;
+}
+.login-button{
+	margin-top: 250px;
+	margin-left: 30px;
+}

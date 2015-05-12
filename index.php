@@ -37,7 +37,7 @@ function getUserID($userName){
 }
 //Function to print out images on screen
 function printImages($userID){
-	$url = 'https://api.instagram.com/v1/users/'. $userID . '/media/recent?client_id='.clientID.'&count=5';
+	$url = 'https://api.instagram.com/v1/users/'. $userID . '/media/recent?client_id='.clientID.'&count=10';
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 	//Parse through the information one by one.
@@ -104,18 +104,23 @@ else{
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<meta name="decription" context="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- <title>Untitled</title> -->
-		<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+		<title>Learning Api</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="author" href="humans.txt">
 	</head>
 	<body>
+	<i class="fa fa-instagram"></i>
 	<!-- Creating a login for people to go and give approval for our web app to sccess their Instagram Account
 	After getting approval we are now going to have the information and we can play with it. -->
-	<a href="https://api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code">LOGIN</a>
-	<!--<script type="text/javascript" src="js/main.js"></script>-->
+	<a href="https://api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code"><h1 class="login-button">Login to your Instagram</h1></a>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>
 <?php
