@@ -41,12 +41,16 @@ function printImages($userID){
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 	//Parse through the information one by one.
+	require_once(__DIR__ . "/view/header.php");
+
 	foreach ($results['data'] as $items){
 		$image_url = $items['images']['low_resolution']['url'];//going through all results and gives back url of pictures to save in php server
 		echo '<img src=" '.$image_url.' "/><br/>';
 		//calling a function to save that $image_url
 		savePictures($image_url);
 	}
+require_once(__DIR__ . "../view/footer.php");
+
 }
 //Function to save images to server
 function savePictures($image_url){
@@ -111,10 +115,8 @@ else{
 		<link href='http://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
 		<title>Learning Api</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="author" href="humans.txt">
 	</head>
 	<body>
-	<i class="fa fa-instagram"></i>
 	<!-- Creating a login for people to go and give approval for our web app to sccess their Instagram Account
 	After getting approval we are now going to have the information and we can play with it. -->
 	<a href="https://api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code"><h1 class="login-button">Login to your Instagram</h1></a>
