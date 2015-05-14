@@ -38,14 +38,16 @@ function getUserID($userName){
 //Function to print out images on screen
 function printImages($userID){
 	$url = 'https://api.instagram.com/v1/users/'. $userID . '/media/recent?client_id='.clientID.'&count=10';
+
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 	//Parse through the information one by one.
-	require_once(__DIR__ . "/view/header.php");
+	require_once(__DIR__ . "../view/header.php");
 
 	foreach ($results['data'] as $items){
 		$image_url = $items['images']['low_resolution']['url'];//going through all results and gives back url of pictures to save in php server
-		echo '<img src=" '.$image_url.' "/><br/>';
+		//require_once(__DIR__ . "/view/carousel.php");
+		echo '<img id="pics" src=" '.$image_url.' "/><br/>';
 		//calling a function to save that $image_url
 		savePictures($image_url);
 	}
@@ -54,9 +56,9 @@ require_once(__DIR__ . "../view/footer.php");
 }
 //Function to save images to server
 function savePictures($image_url){
-	echo $image_url . '<br>'; 
+	// echo $image_url . '<br>'; 
 	$filename = basename($image_url); //the filename is what we are storing is the PHP built in methos to store $image_url
-	echo $filename . '<br>';
+	echo "<form action='$image_url'> <input type='submit' value='Fullscreen'></form>". '<br>';
 
 	$destination = ImageDirectory . $filename; //making sure that the image dosen't exist in the storage.
 	file_put_contents($destination, file_get_contents($image_url));//grabs image file and stores the image
@@ -120,8 +122,8 @@ else{
 	<!-- Creating a login for people to go and give approval for our web app to sccess their Instagram Account
 	After getting approval we are now going to have the information and we can play with it. -->
 	<a href="https://api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code"><h1 class="login-button">Login to your Instagram</h1></a>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 	<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>
