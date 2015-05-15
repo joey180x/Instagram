@@ -37,7 +37,7 @@ function getUserID($userName){
 }
 //Function to print out images on screen
 function printImages($userID){
-	$url = 'https://api.instagram.com/v1/users/'. $userID . '/media/recent?client_id='.clientID.'&count=10';
+	$url = 'https://api.instagram.com/v1/users/'. $userID . '/media/recent?client_id='.clientID.'&count=5';
 
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
@@ -58,7 +58,7 @@ require_once(__DIR__ . "../view/footer.php");
 function savePictures($image_url){
 	// echo $image_url . '<br>'; 
 	$filename = basename($image_url); //the filename is what we are storing is the PHP built in methos to store $image_url
-	echo "<form action='$image_url'> <input type='submit' value='Fullscreen'></form>". '<br>';
+	echo "<form action='$image_url'> <input type='submit' class='fullscreen' value='Fullscreen'></form>". '<br>';
 
 	$destination = ImageDirectory . $filename; //making sure that the image dosen't exist in the storage.
 	file_put_contents($destination, file_get_contents($image_url));//grabs image file and stores the image
@@ -101,7 +101,19 @@ $userName = $results['user']['username'];
 
 $userID = getUserID($userName);
 
+
 printImages($userID);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body class="second">
+
+</body>
+</html>
+<?php
 }
 else{
 ?>
@@ -118,10 +130,23 @@ else{
 		<title>Learning Api</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
-	<body>
+	<body class="main-body">
 	<!-- Creating a login for people to go and give approval for our web app to sccess their Instagram Account
 	After getting approval we are now going to have the information and we can play with it. -->
-	<a href="https://api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code"><h1 class="login-button">Login to your Instagram</h1></a>
+	<!-- <div class="jumbotron">
+		<div class="container">
+				<a  class="btn btn-primary btn-lg" href="https://api.instagram.com/oauth/authorize/?client_id=<?php //echo clientID; ?>&redirect_uri=<?php //echo redirectURI; ?>&response_type=code">
+					<h1>Log Into Instagram</h1>
+				</a>
+		</div>
+	</div> -->
+	<div style="text-align:center; margin-top:5em;">
+  
+    <a class="btn-instagram" href="https://api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code">
+      <b>Sign in</b> with Instagram
+  	</a>
+  
+</div>
 	 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
 	<script type="text/javascript" src="js/main.js"></script>

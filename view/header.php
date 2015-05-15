@@ -9,4 +9,7 @@
 		<title>Learning Api</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
-	<body>
+	<body class="second">
+	<form class="logout" action="http://localhost/appacademyapi1/index.php">
+<input type="submit" value="Logout">
+</form>
