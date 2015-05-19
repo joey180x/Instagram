@@ -132,13 +132,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#59ffffff', e
 }
 
 /* Hover / Focus */
-.btn-instagram:hover, .btn-instagram:focus  {
+/*.btn-instagram:hover, .btn-instagram:focus  {
 	background: #fff;
-}
+}*/
 
-.btn-instagram:hover {
+/*.btn-instagram:hover {
 	border-right:0.25em solid #09c;
-}
+}*/
 
 .btn-instagram:hover:before {
 	background:#fc6; /* yellow stripe */ 
